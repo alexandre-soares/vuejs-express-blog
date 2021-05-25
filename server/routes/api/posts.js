@@ -14,6 +14,17 @@ router.get('/', async (req, res) => {
 
 })
 
+// Add Posts
+router.post('/', async (req, res) => {
+    const posts = await loadPostsCollection();
+    await posts.insertOne({
+        title: req.body.title,
+        content: req.body.content,
+        createdAt: new Date()
+    });
+
+    res.status(201).send();
+})
 
 // connect to posts collection
 async function loadPostsCollection() {
